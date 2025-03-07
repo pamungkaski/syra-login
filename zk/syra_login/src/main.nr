@@ -46,6 +46,9 @@ fn main(
     let arrSub = sub.storage();
     let bts: [u8; 32] = reconstructed_secret.to_le_bytes();
 
+
+    // matching sub from jwt with reconstructed seceret
+    // because they are in different data type, need to match each byte
     let subPtr: u32 = sub.len() + 32;
     let mut mtch = true;
     for i in 0..32 {
