@@ -1,0 +1,8 @@
+[package]
+name = "syra_login"
+type = "bin"
+authors = [""]
+
+[dependencies]
+id_token = { path = "./id_token" }
+shamir_secret_sharing = { path = "./shamir_secret_sharing" }
