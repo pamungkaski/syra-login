@@ -5,17 +5,20 @@ global MAX_ISSUER_LENGTH: u32 = 100;
 global MAX_AUDIENCE_LENGTH: u32 = 100;
 
 fn main(
-   x_coords: [Field; MAX_SHARE],
-   y_coords: [Field; MAX_SHARE],
-   share: pub [Field; 2],
-   data: BoundedVec<u8, MAX_DATA_LENGTH>,  // Encoded JWT token
-   b64_offset: u32,                        // Base64 offset for signature
+   // statement
    pubkey_modulus_limbs: pub [Field; 18],  // RSA modulus
    redc_params_limbs: pub [Field; 18],         // RSA reduction parameters
-   signature_limbs: pub [Field; 18],           // RSA signature
-   domain: BoundedVec<u8, MAX_AUDIENCE_LENGTH>, // Expected audience
-   issuer: BoundedVec<u8, MAX_ISSUER_LENGTH>,  // Expected issuer
-   current_time: u64                     // Current timestamp
+   share: pub [Field; 2], // part of secret send to issuer
+   domain: pub BoundedVec<u8, MAX_AUDIENCE_LENGTH>, // Expected audience
+   issuer: pub BoundedVec<u8, MAX_ISSUER_LENGTH>,  // Expected issuer
+   current_time: pub u64,                     // Current timestamp
+
+   //witness
+   x_coords: [Field; MAX_SHARE],
+   y_coords: [Field; MAX_SHARE],
+   data: BoundedVec<u8, MAX_DATA_LENGTH>,  // Encoded JWT token
+   signature_limbs: [Field; 18],           // RSA signature
+   b64_offset: u32                        // Base64 offset for signature
 ) {
     let sub = id_token::verify(
         data,
